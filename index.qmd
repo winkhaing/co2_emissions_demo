@@ -94,6 +94,9 @@ table_df["Relative Change"] = (table_df["Absolute Change"] / table_df['2000'].as
 
 # Round to 0 decimal places, and add a % sign to the relative change
 table_df["Relative Change"] = table_df["Relative Change"].round(0).astype(str) + "%"
+
+# Sort table_df alphabetically by country
+table_df = table_df.sort_values(by='country').reset_index(drop=True)
 ```
 
 Now we can display this as an interactive table with itables:
@@ -129,8 +132,7 @@ emissions_long_1990_2022 = emissions_long_1990_2022.replace({"UAE": "United Arab
 emissions_long_subset = emissions_long_1990_2022.query("country in ['Singapore', 'China', 'India', 'Germany', 'Japan']")
 
 # Create line chart. Year should be on the x-axis, emissions on the y-axis, and color should be by country.
-fig_chart = px.line(emissions_long_subset, x="year", y="emissions", color="country", title="CO2 Emissions by Country (1990-2022)",
-                   labels={"year": "Year", "emissions": "CO2 Emissions", "country": "Country"})
+fig_chart = px.line(emissions_long_subset, x="year", y="emissions", color="country", title="CO2 Emissions by Country (1990-2022)", labels={"year": "Year", "emissions": "CO2 Emissions", "country": "Country"})
 
 fig_chart
 ```
